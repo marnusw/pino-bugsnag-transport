@@ -1,0 +1,13 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "words": ["pino-bugsnag-transport", "octocat", "pino", "bugsnag"],
+  "flagWords": [],
+  "ignorePaths": [
+    "package.json",
+    "package-lock.json",
+    "yarn.lock",
+    "tsconfig.json",
+    "node_modules/**"
+  ]
+}
