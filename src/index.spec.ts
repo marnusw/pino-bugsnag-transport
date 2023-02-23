@@ -10,7 +10,7 @@ vi.mock('@bugsnag/node', async () => {
       ...actual.default,
       start: vi.fn(),
       notify: vi.fn((error, onError) => {
-        onError?.(new actual.default.Event())
+        onError?.(new actual.default.Event(), vi.fn())
       }),
     },
   }

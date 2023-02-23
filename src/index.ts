@@ -1,7 +1,8 @@
-import Bugsnag, { Config, Event, OnErrorCallback } from '@bugsnag/node'
+import Bugsnag, { Config, Event } from '@bugsnag/node'
 import build from 'pino-abstract-transport'
 
 type OnErrorCallbackCb = (err: null | Error, shouldSend?: boolean) => void
+type OnErrorCallback = (event: Event, cb?: OnErrorCallbackCb) => void | boolean | Promise<void | boolean>
 
 const severityLevels = {
   trace: 10,
@@ -73,7 +74,11 @@ export default async function (initBugsnagOptions: Partial<PinoBugsnagOptions>) 
       event.addMetadata('pino-log-record', pinoEvent)
     }
 
-    onError?.(event, cb)
+    if (onError?.length >= 2) {
+      onError?.(event, cb)
+    } else {
+      Promise.resolve(onError?.(event)).then((shouldSend: boolean) => cb(null, shouldSend))
+    }
   }
 
   return build(async function (source) {
