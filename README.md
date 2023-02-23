@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![npm version](https://img.shields.io/npm/v/pino-bugsnag-transport)](https://www.npmjs.com/package/pino-bugsnag-transport)
 [![GitHub Workflow Status](https://github.com/marnusw/pino-bugsnag-transport/actions/workflows/pino-bugsnag-transport.yml/badge.svg?branch=master)](https://github.com/marnusw/pino-bugsnag-transport/actions)
-
+ 
 A transport for sending [pino](https://getpino.io/#/) error logs to Bugsnag.
 
 ## Install
