@@ -1,4 +1,4 @@
-import { BugsnagStatic, Event, OnErrorCallback } from '@bugsnag/node'
+import Bugsnag, { Config, Event, OnErrorCallback } from '@bugsnag/node'
 import build from 'pino-abstract-transport'
 
 type OnErrorCallbackCb = (err: null | Error, shouldSend?: boolean) => void
@@ -26,7 +26,7 @@ function deserializePinoError(pinoErr) {
 }
 
 interface PinoBugsnagOptions {
-  bugsnag: BugsnagStatic
+  bugsnag: Config
   errorKey: string
   messageKey: string
   minLevel: SeverityLevel
@@ -49,6 +49,8 @@ export default async function (initBugsnagOptions: Partial<PinoBugsnagOptions>) 
   const options = { ...defaultOptions, ...initBugsnagOptions }
 
   const { bugsnag, errorKey, messageKey, onError } = options
+
+  Bugsnag.start(bugsnag)
 
   const minLevel = normalizeLevel(options.minLevel)
   const errorLevel = normalizeLevel(options.errorLevel)
@@ -83,7 +85,7 @@ export default async function (initBugsnagOptions: Partial<PinoBugsnagOptions>) 
       const serializedError = obj[errorKey] ?? obj.error
 
       if (obj.level >= minLevel) {
-        bugsnag.notify(
+        Bugsnag.notify(
           serializedError ? deserializePinoError(serializedError) : new Error(obj[messageKey]),
           (event, cb) => enrichEvent(event, cb, obj),
         )

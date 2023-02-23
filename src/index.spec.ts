@@ -8,6 +8,7 @@ vi.mock('@bugsnag/node', async () => {
   return {
     default: {
       ...actual.default,
+      start: vi.fn(),
       notify: vi.fn((error, onError) => {
         onError?.(new actual.default.Event())
       }),
@@ -21,7 +22,7 @@ afterEach(() => {
 
 it('should send logs to Bugsnag if the message level is above the threshold', async () => {
   const transform = (await pinoBugsnagTransport({
-    bugsnag: Bugsnag,
+    bugsnag: { apiKey: '' },
   })) as Transform
 
   const logs = [
@@ -84,7 +85,7 @@ it('should send Errors to Bugsnag', async () => {
   const events = []
 
   const transform = (await pinoBugsnagTransport({
-    bugsnag: Bugsnag,
+    bugsnag: { apiKey: '' },
     errorKey: 'error',
     messageKey: 'message',
     minLevel: 'info',
