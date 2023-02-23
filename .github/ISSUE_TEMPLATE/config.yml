@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/marnusw/pino-bugsnag-transport/discussions
+    about: Please discuss non bug-related topics there
